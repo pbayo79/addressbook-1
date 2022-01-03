@@ -1,54 +1,26 @@
 pipeline {
-    agent none
-    tools{
-        jdk 'myjava'
-        maven 'mymaven'
-    }
+    agent any
+
     stages {
         stage('Compile') {
-            agent any
             steps {
                 script{
-                    echo "Compiling the code"
-                    git 'https://github.com/preethid/addressbook-1.git'
-                    sh 'mvn compile'
-                  }
+                    echo "Compiling the job"
+                }
             }
         }
         stage('UnitTest') {
-            agent {label 'linux_slave'}
             steps {
                 script{
-                    echo "Running the test cases"
-                    git 'https://github.com/preethid/addressbook-1.git'
-                    sh 'mvn test'
-                }
-            }
-            post{
-                always{
-                    junit 'target/surefire-reports/*.xml'
+                    echo "running the code"
                 }
             }
         }
         stage('Package') {
-            agent any
-           steps {
-                script{                   
-                    sshagent(['build-server-key']) {
-                    echo "Packaging the code"
-                    sh "scp -o StrictHostKeyChecking=no server-script.sh ec2-user@172.31.44.109:/home/ec2-user"
-                    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.44.109 'bash ~/server-script.sh'"
-  
-      }
-                  }
-            }
-        }
-        stage('Deploy') {
-            agent any
-           steps {
+            steps {
                 script{
-                    echo "Deploying the app"
-                  }
+                    echo "Packaging the code"
+                }
             }
         }
     }
