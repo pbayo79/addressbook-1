@@ -4,24 +4,24 @@ pipeline {
     stages {
         stage('Compile') {
             steps {
-                script{
+                script {
                     echo "Compiling the job"
                 }
             }
         }
         stage('UnitTest') {
             steps {
-                script{
-                    echo "running the code"
+                script {
+                    echo "Running the test cases"
                 }
             }
         }
         stage('Package') {
             steps {
-                script{
+                script {
                     echo "Packaging the code"
                 }
             }
         }
     }
-}
+}    
