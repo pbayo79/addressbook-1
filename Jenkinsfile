@@ -6,6 +6,8 @@ pipeline {
             steps {
                 script{
                     echo "Compiling the job"
+                    echo " compiling the slave"
+
                 }
             }
         }
